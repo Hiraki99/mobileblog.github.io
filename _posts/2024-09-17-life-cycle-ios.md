@@ -21,8 +21,25 @@ The app is in the background and not executing any code. The system may terminat
 
 # Lifecycle Methods in ```ApplicationDelegate```
 - ```application(_:didFinishLaunchingWithOptions:)```: Called when the app has completed launching and is about to run. This is where you typically perform app setup.
-* applicationDidBecomeActive(_:): Called when the app transitions from inactive to active state. You should use this to restart any tasks that were paused or not yet started when the app was inactive.
-* applicationWillResignActive(_:): Called when the app is about to move from active to inactive state. Use this to pause ongoing tasks or disable features that shouldn’t run while the app is inactive.
-* applicationDidEnterBackground(_:): Called when the app moves to the background. This is where you should save user data, release shared resources, and store enough state information to restore the app to its current state if it is terminated later.
-* applicationWillEnterForeground(_:): Called as part of the transition from the background to the active state. This is where you can undo changes made when entering the background.
-* applicationWillTerminate(_:): Called when the app is about to terminate. This method is not called if the app is suspended or if it is being terminated by the system. It is primarily used for final cleanup.
+* ```applicationDidBecomeActive(_:)```: Called when the app transitions from inactive to active state. You should use this to restart any tasks that were paused or not yet started when the app was inactive.
+* ```applicationWillResignActive(_:)```: Called when the app is about to move from active to inactive state. Use this to pause ongoing tasks or disable features that shouldn’t run while the app is inactive.
+* ```applicationDidEnterBackground(_:)```: Called when the app moves to the background. This is where you should save user data, release shared resources, and store enough state information to restore the app to its current state if it is terminated later.
+* ```applicationWillEnterForeground(_:)```: Called as part of the transition from the background to the active state. This is where you can undo changes made when entering the background.
+* ```applicationWillTerminate(_:)```: Called when the app is about to terminate. This method is not called if the app is suspended or if it is being terminated by the system. It is primarily used for final cleanup.
+
+# The scene delegate
+The AppDelegate is now only responsible for the application lifecycle and setup, since iOS 13. The SceneDelegate will be responsible for what is shown on the screen (Windows or Scenes) handle and manage the way your app is shown.
+For example:
+
+```swift
+    func application(application: UIApplication,
+            didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool {
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.rootViewController = ViewController()
+        self.window?.rootViewController = self.rootViewController
+        self.window?.makeKeyAndVisible()
+        
+        return true
+    }
+```
